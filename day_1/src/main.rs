@@ -1,4 +1,4 @@
-use std::{env, fs};
+use std::fs;
 
 struct Knob {
     setting: i32,
@@ -26,11 +26,11 @@ impl Knob {
         };
         for _ in 0..adjustment.amount {
             self.setting += increment;
-            self.setting = if (self.setting < 0) {99} else {self.setting};
-            self.setting = if (self.setting > 99) {0} else {self.setting};
-            self.zero_count = if (self.setting == 0) {self.zero_count + 1} else {self.zero_count};
+            self.setting = if self.setting < 0 {99} else {self.setting};
+            self.setting = if self.setting > 99 {0} else {self.setting};
+            self.zero_count = if self.setting == 0 {self.zero_count + 1} else {self.zero_count};
         }
-        self.zero_stop_count = if (self.setting == 0) {self.zero_stop_count + 1} else {self.zero_stop_count};
+        self.zero_stop_count = if self.setting == 0 {self.zero_stop_count + 1} else {self.zero_stop_count};
     }
 }
 
@@ -42,14 +42,10 @@ fn main() {
 
     for i in lines.iter() {
         let adjustment = Adjustment {
-            direction: if (i.chars().nth(0).unwrap() == 'L') {Direction::Left} else {Direction::Right},
+            direction: if i.chars().nth(0).unwrap() == 'L' {Direction::Left} else {Direction::Right},
             amount: i[1..].to_string().parse::<u32>().unwrap(),
         };
         adjustments.push(adjustment);
-    }
-
-    for i in adjustments.iter() {
-        println!("{:?}", i);
     }
 
     // Perform adjustments on the knob
