@@ -1,0 +1,4 @@
+- N batteries, with M allowed to be turned on:
+    - The first battery I must be between digit 0 and N-M
+    - The next, J, must be between I+1 and N-(M-1)
+    - The next, K, must be between J+1 and N-(M-2)
