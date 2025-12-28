@@ -11,10 +11,6 @@ impl Range {
         (val >= self.lower) && (val <= self.upper)
     }
 
-    fn contains_range(&self, range: &Range) -> bool {
-        (self.lower <= range.lower) && (self.upper >= range.upper)
-    }
-
     fn num_valid_ids(&self) -> u64 {
         self.upper - self.lower + 1
     }
@@ -99,29 +95,6 @@ impl RangeCollection {
             total += i.num_valid_ids();
         }
         total
-    }
-
-    fn merge_ranges(r1: Range, r2: Range) -> Vec<Range> {
-        // If one completely contains the other, that's our new range
-        if r1.contains_range(&r2) {
-            return vec![r1];
-        }
-        if r2.contains_range(&r1) {
-            return vec![r2];
-        }
-
-        // If r2 is on the right of r1, merge where they overlap/are continuous
-        if ((r1.lower-1)..=(r1.upper+1)).contains(&r2.lower) {
-            return vec![Range { lower: r1.lower, upper: r2.upper }];
-        }
-
-        // If r2 is on the left of r1, merge where they overlap/are continuous
-        if ((r1.lower-1)..=(r1.upper+1)).contains(&r2.upper) {
-            return vec![Range { lower: r2.lower, upper: r1.upper }];
-        }
-
-        // No overlap, return the original ranges
-        vec![r1, r2]
     }
 
     fn snip(&mut self, r_snip: &Range) {
