@@ -1,0 +1,1 @@
+My solutions for 2025's Advent of Code. ***Yes, I know my Rust code isn't ideal.*** I have complete control over the input file, so I didn't bother handling any errors that could arise as a result of bad inputs (unwrap, my beloved). I'm using this to sharpen my Rust skills before I start some more advanced projects.
